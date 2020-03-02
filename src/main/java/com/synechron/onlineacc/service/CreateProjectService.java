@@ -1,16 +1,23 @@
 package com.synechron.onlineacc.service;
 
+import static com.synechron.onlineacc.util.Constant.*;
+
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.synechron.onlineacc.dao.SelfServiceProjectRepository;
+import com.synechron.onlineacc.domain.SelfServiceProjectDTO;
 import com.synechron.onlineacc.domain.SelfServiceProjectEntity;
 import com.synechron.onlineacc.domain.User;
+import com.synechron.onlineacc.util.CustomGlobalContext;
 import com.synechron.onlineacc.util.OrgName;
 import com.synechron.onlineacc.util.ProjectType;
 
@@ -20,6 +27,8 @@ public class CreateProjectService {
 
 	@Autowired UserService userService;
 	@Autowired SelfServiceProjectRepository selfServiceProjectRepository;
+	@Autowired private Environment env;
+
 
 	public SelfServiceProjectEntity create(Long id, OrgName newOrgName, ProjectType projectType, String strProjectName, String strTestURL, Principal principal) throws Exception {
 		L.info("Start : CreateProjectService.create(...) : id = {}, newOrgName = {}, projectType = {}, strProjectName = {}, strTestURL = {}", id, newOrgName, projectType, strProjectName, strTestURL);
@@ -33,14 +42,29 @@ public class CreateProjectService {
 		return selfServiceProjectEntity;
 	}
 
-	public List<SelfServiceProjectEntity> get(Principal principal) throws Exception {
+	public List<SelfServiceProjectDTO> get(Principal principal) throws Exception {
 		User user = userService.findByUsername(principal.getName());
 		L.info("Start : CreateProjectService.get(...) : UserId = {}", user.getUserId());
 
-		List<SelfServiceProjectEntity> findByUserId = selfServiceProjectRepository.findByUserId(user.getUserId());
+		List<SelfServiceProjectDTO> lstSelfServiceProjectEntity = new ArrayList<SelfServiceProjectDTO>();
+		Iterable<SelfServiceProjectEntity> iterableSelfServiceProjectEntity = selfServiceProjectRepository.findByUserId(user.getUserId());
+		Iterator<SelfServiceProjectEntity> iteratorSelfServiceProjectEntity = iterableSelfServiceProjectEntity.iterator();
+		SelfServiceProjectEntity objSelfServiceProjectEntity;
+		while (iteratorSelfServiceProjectEntity.hasNext()) {
+			objSelfServiceProjectEntity = iteratorSelfServiceProjectEntity.next();
+
+//			https://2886795357-9080-frugo01.environments.katacoda.com/job/ravikalla/job/test1/
+			String urlJenkinsJob = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", objSelfServiceProjectEntity.getOrgName().toString()) + JENKINS_URI_PROJECT_VIEW.replace("<PROJECT_NAME>", objSelfServiceProjectEntity.getProjectName());
+//			https://github.com/ravikalla/JavaTemplateProject
+			String urlGitProject = GIT_URL + "/" + objSelfServiceProjectEntity.getOrgName().toString() + "/" + env.getProperty("git.templatename." + objSelfServiceProjectEntity.getProjectType().toString());
+//			https://github.com/ravikalla/devops-tickets/issues
+			String urlDefectURL = DEFECT_URL; 
+
+			lstSelfServiceProjectEntity.add(new SelfServiceProjectDTO(objSelfServiceProjectEntity, urlJenkinsJob, urlGitProject, urlDefectURL));
+		}
 
 		L.info("End : CreateProjectService.get(...) : UserId = {}", user.getUserId());
 
-		return findByUserId;
+		return lstSelfServiceProjectEntity;
 	}
 }

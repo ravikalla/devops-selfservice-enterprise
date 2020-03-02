@@ -20,14 +20,20 @@
                 <th>Technology</th>
                 <th>Organization Name</th>
                 <th>Test URL</th>
+                <th>Jenkins Job URL</th>
+                <th>Workspace URL</th>
+                <th>Ticket URL</th>
             </tr>
             </thead>
             <tbody>
             <tr data-th-each="project : ${projects}">
                 <td data-th-text="${project.projectName}">...</td>
-                <td data-th-text="${project.technology}">...</td>
-                <td data-th-text="${project.newOrgName}">...</td>
+                <td data-th-text="${project.projectType}">...</td>
+                <td data-th-text="${project.orgName}">...</td>
                 <td data-th-text="${project.testURL}">...</td>
+                <td><a th:href="${project.urlJenkinsJob}" th:text="Jenkins" target="_blank" /></td>
+                <td><a th:href="${project.urlGitProject}" th:text="Git" target="_blank" /></td>
+                <td><a th:href="${project.urlDefectURL}" th:text="Defect" target="_blank" /></td>
             </tr>
             </tbody>
         </table>

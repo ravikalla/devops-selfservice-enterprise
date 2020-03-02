@@ -6,7 +6,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.synechron.onlineacc.util.OrgName;
 import com.synechron.onlineacc.util.ProjectType;
@@ -17,6 +16,7 @@ public class SelfServiceProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private Long userId;
 	private String projectName;
 	@Enumerated(EnumType.STRING)
@@ -25,9 +25,13 @@ public class SelfServiceProjectEntity {
 	private OrgName orgName;
 	private String testURL;
 
+	public SelfServiceProjectEntity() {
+		super();
+	}
 	public SelfServiceProjectEntity(Long id, Long userId, String projectName, ProjectType projectType, OrgName orgName, String testURL) {
 		super();
 		this.id = id;
+		this.userId = userId;
 		this.projectName = projectName;
 		this.projectType = projectType;
 		this.orgName = orgName;

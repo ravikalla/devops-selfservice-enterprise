@@ -1,7 +1,7 @@
 package com.synechron.onlineacc.service;
 
-import static com.synechron.onlineacc.util.Constant.JENKINS_URI_CREATEORG;
-import static com.synechron.onlineacc.util.Constant.JENKINS_URI_CREATEPROJECT;
+import static com.synechron.onlineacc.util.Constant.JENKINS_URI_ORG;
+import static com.synechron.onlineacc.util.Constant.JENKINS_URI_PROJECT_CREATE;
 import static com.synechron.onlineacc.util.Constant.JENKINS_URI_JAVA_TEMPLATE;
 
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class JenkinsService {
 
 		RequestBody body = RequestBody.create(MediaType.parse("application/xml"), getJobFileContent(env.getProperty("jenkins.templatepath." + projectType)));
 
-		String strURL = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_CREATEORG.replace("<ORG_NAME>", orgName.toString()) + JENKINS_URI_CREATEPROJECT.replace("<PROJECT_NAME>", strProjectName);
+		String strURL = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", orgName.toString()) + JENKINS_URI_PROJECT_CREATE.replace("<PROJECT_NAME>", strProjectName);
 		L.info("45 : JenkinsService.createJob(...) : strURL = {}", strURL);
 		String auth = CustomGlobalContext.getJenkinsUserName() + ":" + CustomGlobalContext.getJenkinsToken();
 		byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
@@ -65,7 +65,7 @@ public class JenkinsService {
 
 		RequestBody body = RequestBody.create(MediaType.parse("application/xml"), getJobFileContent(env.getProperty("jenkins.orgfolder")));
 
-		String strURL = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_CREATEPROJECT.replace("<PROJECT_NAME>", orgName.toString());
+		String strURL = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_PROJECT_CREATE.replace("<PROJECT_NAME>", orgName.toString());
 		L.info("45 : JenkinsService.createFolder(...) : strURL = {}", strURL);
 		String auth = CustomGlobalContext.getJenkinsUserName() + ":" + CustomGlobalContext.getJenkinsToken();
 		byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));

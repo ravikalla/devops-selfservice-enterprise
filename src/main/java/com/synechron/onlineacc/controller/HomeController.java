@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.synechron.onlineacc.dao.RoleDao;
-import com.synechron.onlineacc.domain.SelfServiceProjectEntity;
+import com.synechron.onlineacc.domain.SelfServiceProjectDTO;
 import com.synechron.onlineacc.domain.User;
 import com.synechron.onlineacc.domain.security.UserRole;
 import com.synechron.onlineacc.service.CreateProjectService;
@@ -84,7 +84,7 @@ public class HomeController {
 	@RequestMapping(AppConstants.HOME_USER_FRONT)
 	public String userFront(Principal principal, Model model) {
 		L.debug("81 : Start : HomeController.userFront(...)");
-		List<SelfServiceProjectEntity> lstProjects = null;
+		List<SelfServiceProjectDTO> lstProjects = null;
 
 		try {
 			lstProjects = createProjectService.get(principal);
