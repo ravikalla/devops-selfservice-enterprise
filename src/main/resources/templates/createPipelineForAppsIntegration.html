@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main">
+    <div class="row">
+        <div class="col-md-6">
+            <form th:action="@{/admin/credentialsJenkinsAndGit}" method="post">
+                <div class="form-group" >
+                    <label for="jenkinsURL">1. Enter Jenkins URL:</label>
+                    <input th:value="${jenkinsURL}" type="text" name="jenkinsURL" id="jenkinsURL" class="form-control" aria-label="Jenkins URL"/>
+                    <br />
+                </div>
+                <div class="form-group" >
+                    <label for="jenkinsToken">2. Enter Jenkins Token:</label>
+                    <input th:value="${jenkinsToken}" type="password" name="jenkinsToken" id="jenkinsToken" class="form-control" aria-label="Jenkins Token"/>
+                    <br />
+                </div>
+                <div class="form-group" >
+                    <label for="jenkinsUserName">3. Enter Jenkins User Name:</label>
+                    <input th:value="${jenkinsUserName}" type="text" name="jenkinsUserName" id="jenkinsUserName" class="form-control" aria-label="Jenkins User Name"/>
+                    <br />
+                </div>
+                <div class="form-group" >
+                    <label for="jenkinsPwd">4. Enter Jenkins Password:</label>
+                    <input th:value="${jenkinsPwd}" type="password" name="jenkinsPwd" id="jenkinsPwd" class="form-control" aria-label="Jenkins Password"/>
+                    <br />
+                </div>
+                <div class="form-group" >
+                    <label for="gitToken">5. Enter Git Token:</label>
+                    <input th:value="${gitToken}" type="password" name="gitToken" id="gitToken" class="form-control" aria-label="Git Token"/>
+                    <br />
+                </div>
+
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Submit Details</button>
+            </form>
+
+            <div class="col-md-6">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

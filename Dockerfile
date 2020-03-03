@@ -17,4 +17,4 @@ ADD pom.xml /code/pom.xml
 ADD src /code/src
 RUN ["mvn", "package", "-DskipTests"]
 
-CMD ["java", "-jar", "target/create-github-defect-0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/devops-selfservice-enterprise-0.1-SNAPSHOT.jar"]

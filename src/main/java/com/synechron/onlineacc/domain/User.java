@@ -13,7 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,15 +39,6 @@ public class User implements UserDetails{
     private String phone;
 
     private boolean enabled=true;
-
-    @OneToOne
-    private PrimaryAccount primaryAccount;
-
-    @OneToOne
-    private SavingsAccount savingsAccount;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Recipient> recipientList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -110,36 +100,12 @@ public class User implements UserDetails{
         this.phone = phone;
     }
 
-    public List<Recipient> getRecipientList() {
-        return recipientList;
-    }
-
-    public void setRecipientList(List<Recipient> recipientList) {
-        this.recipientList = recipientList;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public PrimaryAccount getPrimaryAccount() {
-        return primaryAccount;
-    }
-
-    public void setPrimaryAccount(PrimaryAccount primaryAccount) {
-        this.primaryAccount = primaryAccount;
-    }
-
-    public SavingsAccount getSavingsAccount() {
-        return savingsAccount;
-    }
-
-    public void setSavingsAccount(SavingsAccount savingsAccount) {
-        this.savingsAccount = savingsAccount;
     }
 
     public void setEnabled(boolean enabled) {

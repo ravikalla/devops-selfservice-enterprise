@@ -1,6 +1,5 @@
 package com.synechron.onlineacc.service.UserServiceImpl;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import com.synechron.onlineacc.dao.RoleDao;
 import com.synechron.onlineacc.dao.UserDao;
 import com.synechron.onlineacc.domain.User;
 import com.synechron.onlineacc.domain.security.UserRole;
-import com.synechron.onlineacc.service.AccountService;
 import com.synechron.onlineacc.service.UserService;
 
 @Service
@@ -34,9 +31,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-    
-    @Autowired
-    private AccountService accountService;
 	
 	public void save(User user) {
         userDao.save(user);
@@ -69,9 +63,6 @@ public class UserServiceImpl implements UserService {
             for (UserRole ur : userRoles) {
                 roleDao.save(ur.getRole());
             }
-
-            user.setPrimaryAccount(accountService.createPrimaryAccount());
-            user.setSavingsAccount(accountService.createSavingsAccount());
 
             localUser = userDao.save(user);
         }
