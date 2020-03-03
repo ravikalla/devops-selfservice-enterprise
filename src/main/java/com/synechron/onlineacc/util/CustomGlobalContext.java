@@ -7,6 +7,7 @@ public class CustomGlobalContext {
 	private static String jenkinsToken;
 	private static String jenkinsCrumb;
 	private static String gitToken;
+	private static String sonarUrl;
 
 	public static String getJenkinsUrl() {
 		return jenkinsUrl;
@@ -43,5 +44,11 @@ public class CustomGlobalContext {
 	}
 	public static void setJenkinsCrumb(String jenkinsCrumb) {
 		CustomGlobalContext.jenkinsCrumb = jenkinsCrumb;
+	}
+	public static String getSonarUrl() {
+		return sonarUrl;
+	}
+	public static void setSonarUrl(String sonarUrl) {
+		CustomGlobalContext.sonarUrl = sonarUrl;
 	}
 }

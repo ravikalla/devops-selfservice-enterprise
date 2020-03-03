@@ -1,8 +1,6 @@
 package com.synechron.onlineacc.service;
 
-import static com.synechron.onlineacc.util.Constant.JENKINS_URI_ORG;
-import static com.synechron.onlineacc.util.Constant.JENKINS_URI_PROJECT_CREATE;
-import static com.synechron.onlineacc.util.Constant.JENKINS_URI_JAVA_TEMPLATE;
+import static com.synechron.onlineacc.util.Constant.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,10 +39,12 @@ public class JenkinsService {
 
 //	curl -s -XPOST 'https://2886795287-9080-frugo04.environments.katacoda.com/job/Consumer/createItem?name=ConsumerJavaProject1' -u admin:admin --data-binary @mylocalconfig.xml -H "$CRUMB" -H "Content-Type:text/xml" // CRUMB is not working here
 //	curl -s -XPOST 'https://2886795329-9080-elsy04.environments.katacoda.com/job/ravikalla/createItem?name=ConsumerJavaProject1' -u admin:11742235975469edd1c11367cb556483a7 --data-binary @mylocalconfig.xml -H "Content-Type:text/xml"
-	public String createJob(OrgName orgName, ProjectType projectType, String strProjectName) throws Exception {
+	public String createJob(OrgName orgName, ProjectType projectType, String strProjectName, String strURLNewGitProject) throws Exception {
 		OkHttpClient client = new OkHttpClient().newBuilder().build();
 
-		RequestBody body = RequestBody.create(MediaType.parse("application/xml"), getJobFileContent(env.getProperty("jenkins.templatepath." + projectType)));
+		String strJobTemplate = getJobFileContent(env.getProperty("jenkins.templatepath." + projectType));
+		strJobTemplate = strJobTemplate.replace("{GITURL}", strURLNewGitProject);
+		RequestBody body = RequestBody.create(MediaType.parse("application/xml"), strJobTemplate);
 
 		String strURL = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", orgName.toString()) + JENKINS_URI_PROJECT_CREATE.replace("<PROJECT_NAME>", strProjectName);
 		L.info("45 : JenkinsService.createJob(...) : strURL = {}", strURL);
@@ -113,6 +113,25 @@ public class JenkinsService {
 		Response response = client.newCall(request).execute();
 		L.info("End : JenkinsService.downloadFile() : strProjectName = {}", projectType);
 		return response.body().string();
+	}
+
+//	https://2886795326-9080-cykoria04.environments.katacoda.com/job/ravikalla/job/test/buildWithParameters?token=admin&MYSQL_ROOT_PASSWORD=root
+	public void triggerJob(OrgName orgName, String strProjectName) throws IOException {
+		L.info("Start : JenkinsService.triggerJob() : orgName = {}, strProjectName = {}", orgName.toString(), strProjectName);
+		OkHttpClient client = new OkHttpClient().newBuilder().build();
+		String strURL = getJenkinsJobTriggerUrl(orgName, strProjectName);
+		L.info("123 : JenkinsService.triggerJob(...) : strURL = {}", strURL);
+
+		Request request = new Request.Builder()
+				.url(strURL)
+				.method("GET", null)
+				.build();
+		Response response = client.newCall(request).execute();
+		L.info("End : JenkinsService.triggerJob() : orgName = {}, strProjectName = {}, response.code() = {}", orgName.toString(), strProjectName, response.code());
+	}
+
+	public String getJenkinsJobTriggerUrl(OrgName orgName, String strProjectName) {
+		return CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", orgName.toString()) + JENKINS_URI_PROJECT_CREATE.replace("<PROJECT_NAME>", strProjectName) + JENKINS_URI_BUILD.replace("<TOKEN_NAME>", env.getProperty("jenkins.trigger.token"));
 	}
 
 //	@Autowired

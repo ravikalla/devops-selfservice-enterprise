@@ -35,7 +35,9 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = URI_ADMIN_CREDENTIALS_JENKINS_GIT, method = RequestMethod.POST)
-	public String setJenkinsCredentials(@RequestParam(value = "jenkinsURL", required = true) String strJenkinsURL
+	public String setJenkinsCredentials(
+			@RequestParam(value = "sonarURL", required = false) String strSonarUrl
+			, @RequestParam(value = "jenkinsURL", required = true) String strJenkinsURL
 			, @RequestParam(value = "jenkinsToken", required = false) String strJenkinsToken
 			, @RequestParam(value = "jenkinsUserName", required = false) String strJenkinsUserName
 			, @RequestParam(value = "jenkinsPwd", required = false) String strJenkinsPwd
@@ -43,9 +45,11 @@ public class AdminController {
 			, Principal principal
 			)
 			throws Exception {
-		L.info("Start : AdminController.setJenkinsCredentials(...) : strJenkinsURL = {} : strJenkinsUserName = {}", strJenkinsURL, strJenkinsUserName);
+		L.info("Start : AdminController.setJenkinsCredentials(...) : strSonarURL = {}, strJenkinsURL = {} : strJenkinsUserName = {}", strSonarUrl, strJenkinsURL, strJenkinsUserName);
 		CustomGlobalContext.setJenkinsUrl(strJenkinsURL);
 
+		if (null != strSonarUrl)
+			CustomGlobalContext.setSonarUrl(strSonarUrl);
 		if (null != strJenkinsToken)
 			CustomGlobalContext.setJenkinsToken(strJenkinsToken);
 		if (null != strJenkinsUserName)
@@ -54,7 +58,7 @@ public class AdminController {
 			CustomGlobalContext.setJenkinsPwd(strJenkinsPwd);
 		if (null != strGitToken)
 			CustomGlobalContext.setGitToken(strGitToken);
-		L.info("End : AdminController.setJenkinsCredentials(...) : strJenkinsURL = {} : strJenkinsUserName = {}", strJenkinsURL, strJenkinsUserName);
+		L.info("End : AdminController.setJenkinsCredentials(...) : strSonarURL = {}, strJenkinsURL = {} : strJenkinsUserName = {}", strSonarUrl, strJenkinsURL, strJenkinsUserName);
 		return "redirect:/userFront";
 	}
 }

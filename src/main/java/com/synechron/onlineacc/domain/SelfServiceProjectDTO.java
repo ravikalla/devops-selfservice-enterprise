@@ -14,29 +14,14 @@ public class SelfServiceProjectDTO {
 	private String urlJenkinsJob;
 	private String urlGitProject;
 	private String urlDefectURL;
+	private String urlSonarURL;
+	private String urlJenkinsJobTrigger;
 
-	public String getUrlJenkinsJob() {
-		return urlJenkinsJob;
-	}
-	public void setUrlJenkinsJob(String urlJenkinsJob) {
-		this.urlJenkinsJob = urlJenkinsJob;
-	}
-	public String getUrlGitProject() {
-		return urlGitProject;
-	}
-	public void setUrlGitProject(String urlGitProject) {
-		this.urlGitProject = urlGitProject;
-	}
-	public String getUrlDefectURL() {
-		return urlDefectURL;
-	}
-	public void setUrlDefectURL(String urlDefectURL) {
-		this.urlDefectURL = urlDefectURL;
-	}
 	public SelfServiceProjectDTO() {
 		super();
 	}
-	public SelfServiceProjectDTO(SelfServiceProjectEntity selfServiceProjectEntity, String urlJenkinsJob, String urlGitProject, String urlDefectURL) {
+
+	public SelfServiceProjectDTO(SelfServiceProjectEntity selfServiceProjectEntity, String urlJenkinsJob, String urlGitProject, String urlDefectURL, String urlSonarURL, String urlJenkinsJobTriggerURL) {
 		super();
 		this.userId = selfServiceProjectEntity.getUserId();
 		this.projectName = selfServiceProjectEntity.getProjectName();
@@ -46,6 +31,8 @@ public class SelfServiceProjectDTO {
 		this.urlJenkinsJob = urlJenkinsJob;
 		this.urlGitProject = urlGitProject;
 		this.urlDefectURL = urlDefectURL;
+		this.urlSonarURL = urlSonarURL;
+		this.setUrlJenkinsJobTrigger(urlJenkinsJobTriggerURL);
 	}
 
 	public ProjectType getProjectType() {
@@ -72,12 +59,42 @@ public class SelfServiceProjectDTO {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
-
 	public Long getUserId() {
 		return userId;
 	}
-
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	public String getUrlJenkinsJob() {
+		return urlJenkinsJob;
+	}
+	public void setUrlJenkinsJob(String urlJenkinsJob) {
+		this.urlJenkinsJob = urlJenkinsJob;
+	}
+	public String getUrlGitProject() {
+		return urlGitProject;
+	}
+	public void setUrlGitProject(String urlGitProject) {
+		this.urlGitProject = urlGitProject;
+	}
+	public String getUrlDefectURL() {
+		return urlDefectURL;
+	}
+	public void setUrlDefectURL(String urlDefectURL) {
+		this.urlDefectURL = urlDefectURL;
+	}
+	public String getUrlSonarURL() {
+		return urlSonarURL;
+	}
+	public void setUrlSonarURL(String urlSonarURL) {
+		this.urlSonarURL = urlSonarURL;
+	}
+
+	public String getUrlJenkinsJobTrigger() {
+		return urlJenkinsJobTrigger;
+	}
+
+	public void setUrlJenkinsJobTrigger(String urlJenkinsJobTrigger) {
+		this.urlJenkinsJobTrigger = urlJenkinsJobTrigger;
 	}
 }

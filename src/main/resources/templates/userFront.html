@@ -22,7 +22,9 @@
                 <th>Test URL</th>
                 <th>Jenkins Job URL</th>
                 <th>Workspace URL</th>
-                <th>Ticket URL</th>
+                <th>Static Code Analysis</th>
+                <th>Service Ticket</th>
+                <th>Trigger Jenkins Job</th>
             </tr>
             </thead>
             <tbody>
@@ -33,7 +35,9 @@
                 <td data-th-text="${project.testURL}">...</td>
                 <td><a th:href="${project.urlJenkinsJob}" th:text="Jenkins" target="_blank" /></td>
                 <td><a th:href="${project.urlGitProject}" th:text="Git" target="_blank" /></td>
+                <td><a th:href="${project.urlSonarURL}" th:text="Sonar" target="_blank" /></td>
                 <td><a th:href="${project.urlDefectURL}" th:text="Defect" target="_blank" /></td>
+                <td><a th:href="${project.urlJenkinsJobTrigger}" th:text="Trigger" target="_blank" /></td>
             </tr>
             </tbody>
         </table>

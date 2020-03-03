@@ -26,6 +26,7 @@ public class CreateProjectService {
 	Logger L = LoggerFactory.getLogger(CreateProjectService.class);
 
 	@Autowired UserService userService;
+	@Autowired JenkinsService jenkinsService;
 	@Autowired SelfServiceProjectRepository selfServiceProjectRepository;
 	@Autowired private Environment env;
 
@@ -55,12 +56,19 @@ public class CreateProjectService {
 
 //			https://2886795357-9080-frugo01.environments.katacoda.com/job/ravikalla/job/test1/
 			String urlJenkinsJob = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", objSelfServiceProjectEntity.getOrgName().toString()) + JENKINS_URI_PROJECT_VIEW.replace("<PROJECT_NAME>", objSelfServiceProjectEntity.getProjectName());
+
 //			https://github.com/ravikalla/JavaTemplateProject
 			String urlGitProject = GIT_URL + "/" + objSelfServiceProjectEntity.getOrgName().toString() + "/" + env.getProperty("git.templatename." + objSelfServiceProjectEntity.getProjectType().toString());
-//			https://github.com/ravikalla/devops-tickets/issues
-			String urlDefectURL = DEFECT_URL; 
 
-			lstSelfServiceProjectEntity.add(new SelfServiceProjectDTO(objSelfServiceProjectEntity, urlJenkinsJob, urlGitProject, urlDefectURL));
+//			https://github.com/ravikalla/devops-tickets/issues
+			String urlDefectURL = DEFECT_URL;
+
+//			https://2886795326-9000-cykoria04.environments.katacoda.com/projects
+			String urlSonarURL = CustomGlobalContext.getSonarUrl();
+
+			String urlJenkinsJobTrigger = jenkinsService.getJenkinsJobTriggerUrl(objSelfServiceProjectEntity.getOrgName(), objSelfServiceProjectEntity.getProjectName());
+
+			lstSelfServiceProjectEntity.add(new SelfServiceProjectDTO(objSelfServiceProjectEntity, urlJenkinsJob, urlGitProject, urlDefectURL, urlSonarURL, urlJenkinsJobTrigger));
 		}
 
 		L.info("End : CreateProjectService.get(...) : UserId = {}", user.getUserId());
