@@ -58,7 +58,7 @@ public class CreateProjectService {
 			String urlJenkinsJob = CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", objSelfServiceProjectEntity.getOrgName().toString()) + JENKINS_URI_PROJECT_VIEW.replace("<PROJECT_NAME>", objSelfServiceProjectEntity.getProjectName());
 
 //			https://github.com/ravikalla/JavaTemplateProject
-			String urlGitProject = GIT_URL + "/" + objSelfServiceProjectEntity.getOrgName().toString() + "/" + env.getProperty("git.templatename." + objSelfServiceProjectEntity.getProjectType().toString());
+			String urlGitProject = getNewGitUrl(objSelfServiceProjectEntity.getOrgName(), objSelfServiceProjectEntity.getProjectType());
 
 //			https://github.com/ravikalla/devops-tickets/issues
 			String urlDefectURL = DEFECT_URL;
@@ -74,5 +74,9 @@ public class CreateProjectService {
 		L.info("End : CreateProjectService.get(...) : UserId = {}", user.getUserId());
 
 		return lstSelfServiceProjectEntity;
+	}
+
+	public String getNewGitUrl(OrgName orgName, ProjectType projectType) {
+		return GIT_URL + "/" + orgName.toString() + "/" + env.getProperty("git.templatename." + projectType.toString());
 	}
 }

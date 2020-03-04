@@ -32,7 +32,7 @@ public class SelfServiceProjectDTO {
 		this.urlGitProject = urlGitProject;
 		this.urlDefectURL = urlDefectURL;
 		this.urlSonarURL = urlSonarURL;
-		this.setUrlJenkinsJobTrigger(urlJenkinsJobTriggerURL);
+		this.urlJenkinsJobTrigger = urlJenkinsJobTriggerURL;
 	}
 
 	public ProjectType getProjectType() {
@@ -89,11 +89,9 @@ public class SelfServiceProjectDTO {
 	public void setUrlSonarURL(String urlSonarURL) {
 		this.urlSonarURL = urlSonarURL;
 	}
-
 	public String getUrlJenkinsJobTrigger() {
 		return urlJenkinsJobTrigger;
 	}
-
 	public void setUrlJenkinsJobTrigger(String urlJenkinsJobTrigger) {
 		this.urlJenkinsJobTrigger = urlJenkinsJobTrigger;
 	}

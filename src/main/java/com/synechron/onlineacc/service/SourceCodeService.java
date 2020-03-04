@@ -74,7 +74,7 @@ public class SourceCodeService {
 		} catch (IOException e) {
 			L.error("SourceCodeService.forkProject(...) : strOrg = {}, strRepoName = {}, newOrgName = {}, IOException e = {}", strOrg, strRepoName, newOrgName, e);
 		}
-		L.info("End : SourceCodeService.forkProject(...) : strOrg = {}, strRepoName = {}, newOrgName = {}", strOrg, strRepoName, newOrgName);
+		L.info("End : SourceCodeService.forkProject(...) : strOrg = {}, strRepoName = {}, newOrgName = {}, (null == createRepository) = {}", strOrg, strRepoName, newOrgName, (null == createRepository));
 		return createRepository;
 	}
 

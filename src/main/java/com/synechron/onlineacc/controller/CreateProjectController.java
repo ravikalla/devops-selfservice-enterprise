@@ -72,14 +72,12 @@ public class CreateProjectController {
 	) throws Exception {
 		L.info("Start : CreateProjectController.createAppsRegular(...) : projectType = {}, newOrgName = {}", projectType, newOrgName.toString());
 		try {
-			createProjectService.create(null, newOrgName, projectType, strProjectName, testURL, principal);
 //			Open a Ticket
 			Issue issue = defectService.create(TICKET_ORG_NAME, TICKET_REPO_NAME, Util.createDefectInfo(TICKET_JOB_CREATE_TITLE, projectType, newOrgName), TICKET_JOB_CREATE_STARTED_LABEL, Util.createDefectInfo(TICKET_JOB_CREATE_BODY, projectType, newOrgName));
 
 //			Create Git repository
-			Repository gitFork = sourceCodeService.gitFork(projectType, newOrgName);
-			String strURLNewGitProject = gitFork.getCloneUrl();
-			L.info("82 : CreateProjectController.createAppsRegular(...) : strURLNewGitProject = {}, gitFork.getGitUrl() = {}, gitFork.getUrl() = {}", strURLNewGitProject, gitFork.getGitUrl(), gitFork.getUrl());
+			sourceCodeService.gitFork(projectType, newOrgName);
+			String strURLNewGitProject = createProjectService.getNewGitUrl(newOrgName, projectType);
 
 //			Create Organization Folder in Jenkins if it doesn't exits
 			jenkinsService.createFolder(newOrgName);
@@ -92,6 +90,8 @@ public class CreateProjectController {
 
 //			Close Ticket
 			defectService.closeTicket(CustomGlobalContext.getGitToken(), TICKET_ORG_NAME, TICKET_REPO_NAME, issue, TICKET_JOB_CREATE_COMPLETED_LABEL);
+
+			createProjectService.create(null, newOrgName, projectType, strProjectName, testURL, principal);
 		} catch (Exception e) {
 			L.error("96 : CreateProjectController.createAppsRegular(...) : Exception e = {}", e);
 		}

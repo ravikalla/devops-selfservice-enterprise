@@ -122,16 +122,21 @@ public class JenkinsService {
 		String strURL = getJenkinsJobTriggerUrl(orgName, strProjectName);
 		L.info("123 : JenkinsService.triggerJob(...) : strURL = {}", strURL);
 
+		String auth = CustomGlobalContext.getJenkinsUserName() + ":" + CustomGlobalContext.getJenkinsToken();
+		byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
+		String authHeader = "Basic " + new String(encodedAuth);
+
 		Request request = new Request.Builder()
 				.url(strURL)
 				.method("GET", null)
+				.addHeader("Authorization", authHeader)
 				.build();
 		Response response = client.newCall(request).execute();
 		L.info("End : JenkinsService.triggerJob() : orgName = {}, strProjectName = {}, response.code() = {}", orgName.toString(), strProjectName, response.code());
 	}
 
 	public String getJenkinsJobTriggerUrl(OrgName orgName, String strProjectName) {
-		return CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", orgName.toString()) + JENKINS_URI_PROJECT_CREATE.replace("<PROJECT_NAME>", strProjectName) + JENKINS_URI_BUILD.replace("<TOKEN_NAME>", env.getProperty("jenkins.trigger.token"));
+		return CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", orgName.toString()) + JENKINS_URI_PROJECT_VIEW.replace("<PROJECT_NAME>", strProjectName) + JENKINS_URI_BUILD_WITH_PARAM.replace("<TOKEN_NAME>", env.getProperty("jenkins.trigger.token"));
 	}
 
 //	@Autowired

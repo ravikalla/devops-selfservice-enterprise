@@ -12,7 +12,7 @@ public class Constant {
 	public static final String JENKINS_URI_ORG = "/job/<ORG_NAME>"; // TODO : Get it from properties file
 	public static final String JENKINS_URI_PROJECT_CREATE = "/createItem?name=<PROJECT_NAME>"; // TODO : Get it from properties file
 	public static final String JENKINS_URI_PROJECT_VIEW = "/job/<PROJECT_NAME>"; // TODO : Get it from properties file
-	public static final String JENKINS_URI_BUILD = "/build?token=<TOKEN_NAME>";
+	public static final String JENKINS_URI_BUILD_WITH_PARAM = "/buildWithParameters?token=<TOKEN_NAME>&MYSQL_ROOT_PASSWORD=root"; // TODO : Remove the hardcoding of "MYSQL_ROOT_PASSWORD" parameter
 	public static final String JENKINS_URI_CRUMB = "/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"; // TODO : Get it from properties file
 
 	public static final String GIT_URL = "https://github.com";
