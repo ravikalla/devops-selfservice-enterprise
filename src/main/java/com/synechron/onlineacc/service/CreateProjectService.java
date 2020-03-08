@@ -31,13 +31,13 @@ public class CreateProjectService {
 	@Autowired private Environment env;
 
 
-	public SelfServiceProjectEntity create(Long id, OrgName newOrgName, ProjectType projectType, String strProjectName, String strTestURL, Principal principal) throws Exception {
+	public SelfServiceProjectEntity create(Long id, OrgName newOrgName, ProjectType projectType, String strProjectName, String distributionList, String strTestURL, Principal principal) throws Exception {
 		L.info("Start : CreateProjectService.create(...) : id = {}, newOrgName = {}, projectType = {}, strProjectName = {}, strTestURL = {}", id, newOrgName, projectType, strProjectName, strTestURL);
 		User user = userService.findByUsername(principal.getName());
 
 		L.info("29 : CreateProjectService.create(...) : UserId = {}", user.getUserId());
 
-		SelfServiceProjectEntity selfServiceProjectEntity = new SelfServiceProjectEntity(id, user.getUserId(), strProjectName, projectType, newOrgName, strTestURL);
+		SelfServiceProjectEntity selfServiceProjectEntity = new SelfServiceProjectEntity(id, user.getUserId(), strProjectName, projectType, newOrgName, distributionList, strTestURL);
 		selfServiceProjectEntity = selfServiceProjectRepository.save(selfServiceProjectEntity);
 		L.info("End : CreateProjectService.create(...) : id = {}, newOrgName = {}, projectType = {}, strProjectName = {}, strTestURL = {}, (null == selfServiceProjectEntity) = {}", id, newOrgName, projectType, strProjectName, strTestURL, (null == selfServiceProjectEntity));
 		return selfServiceProjectEntity;
@@ -68,7 +68,7 @@ public class CreateProjectService {
 
 			String urlJenkinsJobTrigger = jenkinsService.getJenkinsJobTriggerUrl(objSelfServiceProjectEntity.getOrgName(), objSelfServiceProjectEntity.getProjectName());
 
-			lstSelfServiceProjectEntity.add(new SelfServiceProjectDTO(objSelfServiceProjectEntity, urlJenkinsJob, urlGitProject, urlDefectURL, urlSonarURL, urlJenkinsJobTrigger));
+			lstSelfServiceProjectEntity.add(new SelfServiceProjectDTO(objSelfServiceProjectEntity, urlJenkinsJob, urlGitProject, urlDefectURL, objSelfServiceProjectEntity.getDistributionList(), urlSonarURL, urlJenkinsJobTrigger));
 		}
 
 		L.info("End : CreateProjectService.get(...) : UserId = {}", user.getUserId());

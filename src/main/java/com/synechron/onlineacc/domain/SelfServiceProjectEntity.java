@@ -23,12 +23,13 @@ public class SelfServiceProjectEntity {
 	private ProjectType projectType;
 	@Enumerated(EnumType.STRING)
 	private OrgName orgName;
+	private String distributionList;
 	private String testURL;
 
 	public SelfServiceProjectEntity() {
 		super();
 	}
-	public SelfServiceProjectEntity(Long id, Long userId, String projectName, ProjectType projectType, OrgName orgName, String testURL) {
+	public SelfServiceProjectEntity(Long id, Long userId, String projectName, ProjectType projectType, OrgName orgName, String distributionList, String testURL) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -36,6 +37,7 @@ public class SelfServiceProjectEntity {
 		this.projectType = projectType;
 		this.orgName = orgName;
 		this.testURL = testURL;
+		this.setDistributionList(distributionList);
 	}
 
 	public Long getId() {
@@ -75,5 +77,11 @@ public class SelfServiceProjectEntity {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+	public String getDistributionList() {
+		return distributionList;
+	}
+	public void setDistributionList(String distributionList) {
+		this.distributionList = distributionList;
 	}
 }

@@ -67,10 +67,11 @@ public class CreateProjectController {
 			@RequestParam(value="projectName", required=true) String strProjectName
 			, @RequestParam(value="technology", required=true) ProjectType projectType // JAVA
 			, @RequestParam(value="newOrgName", required=true) OrgName newOrgName // ravikalla
+			, @RequestParam(value="distributionList", required=true) String distributionList
 			, @RequestParam(value="testURL", required=true) String testURL
 			, Principal principal
 	) throws Exception {
-		L.info("Start : CreateProjectController.createAppsRegular(...) : projectType = {}, newOrgName = {}", projectType, newOrgName.toString());
+		L.info("Start : CreateProjectController.createAppsRegular(...) : projectType = {}, newOrgName = {}, distributionList = {}", projectType, newOrgName.toString(), distributionList);
 		try {
 //			Open a Ticket
 			Issue issue = defectService.create(TICKET_ORG_NAME, TICKET_REPO_NAME, Util.createDefectInfo(TICKET_JOB_CREATE_TITLE, projectType, newOrgName), TICKET_JOB_CREATE_STARTED_LABEL, Util.createDefectInfo(TICKET_JOB_CREATE_BODY, projectType, newOrgName));
@@ -91,11 +92,11 @@ public class CreateProjectController {
 //			Close Ticket
 			defectService.closeTicket(CustomGlobalContext.getGitToken(), TICKET_ORG_NAME, TICKET_REPO_NAME, issue, TICKET_JOB_CREATE_COMPLETED_LABEL);
 
-			createProjectService.create(null, newOrgName, projectType, strProjectName, testURL, principal);
+			createProjectService.create(null, newOrgName, projectType, strProjectName, distributionList, testURL, principal);
 		} catch (Exception e) {
 			L.error("96 : CreateProjectController.createAppsRegular(...) : Exception e = {}", e);
 		}
-		L.info("End : CreateProjectController.createAppsRegular(...) : projectType = {}, newOrgName = {}", projectType, newOrgName.toString());
+		L.info("End : CreateProjectController.createAppsRegular(...) : projectType = {}, newOrgName = {}, distributionList = {}", projectType, newOrgName.toString(), distributionList);
 		return "redirect:/userFront";
 	}
 
@@ -117,12 +118,12 @@ public class CreateProjectController {
 			@RequestParam(value="projectName", required=true) String strProjectName
 			, @RequestParam(value="technology", required=true) ProjectType projectType // JAVA
 			, @RequestParam(value="newOrgName", required=true) OrgName newOrgName // ravikalla
+			, @RequestParam(value="distributionList", required=true) String distributionList
 			, @RequestParam(value="testURL", required=true) String testURL
 			, Principal principal
 	) throws Exception {
-		L.info("Start : CreateProjectController.createAppsIntegrationApp(...) : projectType = {}, newOrgName = {}", projectType, newOrgName.toString());
+		L.info("Start : CreateProjectController.createAppsIntegrationApp(...) : projectType = {}, newOrgName = {}, distributionList = {}", projectType, newOrgName.toString(), distributionList);
 		try {
-			createProjectService.create(null, newOrgName, projectType, strProjectName, testURL, principal);
 //			Open a Ticket
 			Issue issue = defectService.create(TICKET_ORG_NAME, TICKET_REPO_NAME, Util.createDefectInfo(TICKET_JOB_CREATE_TITLE, projectType, newOrgName), TICKET_JOB_CREATE_STARTED_LABEL, Util.createDefectInfo(TICKET_JOB_CREATE_BODY, projectType, newOrgName));
 
@@ -142,10 +143,12 @@ public class CreateProjectController {
 
 //			Close Ticket
 			defectService.closeTicket(CustomGlobalContext.getGitToken(), TICKET_ORG_NAME, TICKET_REPO_NAME, issue, TICKET_JOB_CREATE_COMPLETED_LABEL);
+
+			createProjectService.create(null, newOrgName, projectType, strProjectName, distributionList, testURL, principal);
 		} catch (Exception e) {
 			L.error("146 : CreateProjectController.createAppsIntegrationApp(...) : Exception e = {}", e);
 		}
-		L.info("End : CreateProjectController.createAppsRegular(...) : projectType = {}, newOrgName = {}", projectType, newOrgName.toString());
+		L.info("End : CreateProjectController.createAppsRegular(...) : projectType = {}, newOrgName = {}, distributionList = {}", projectType, newOrgName.toString(), distributionList);
 		return "redirect:/userFront";
 	}
 }

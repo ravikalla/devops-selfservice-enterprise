@@ -9,6 +9,7 @@ public class SelfServiceProjectDTO {
 	private String projectName;
 	private ProjectType projectType;
 	private OrgName orgName;
+	private String distributionList;
 	private String testURL;
 
 	private String urlJenkinsJob;
@@ -21,7 +22,7 @@ public class SelfServiceProjectDTO {
 		super();
 	}
 
-	public SelfServiceProjectDTO(SelfServiceProjectEntity selfServiceProjectEntity, String urlJenkinsJob, String urlGitProject, String urlDefectURL, String urlSonarURL, String urlJenkinsJobTriggerURL) {
+	public SelfServiceProjectDTO(SelfServiceProjectEntity selfServiceProjectEntity, String urlJenkinsJob, String urlGitProject, String urlDefectURL, String distributionList, String urlSonarURL, String urlJenkinsJobTriggerURL) {
 		super();
 		this.userId = selfServiceProjectEntity.getUserId();
 		this.projectName = selfServiceProjectEntity.getProjectName();
@@ -31,6 +32,7 @@ public class SelfServiceProjectDTO {
 		this.urlJenkinsJob = urlJenkinsJob;
 		this.urlGitProject = urlGitProject;
 		this.urlDefectURL = urlDefectURL;
+		this.distributionList = distributionList;
 		this.urlSonarURL = urlSonarURL;
 		this.urlJenkinsJobTrigger = urlJenkinsJobTriggerURL;
 	}
@@ -94,5 +96,13 @@ public class SelfServiceProjectDTO {
 	}
 	public void setUrlJenkinsJobTrigger(String urlJenkinsJobTrigger) {
 		this.urlJenkinsJobTrigger = urlJenkinsJobTrigger;
+	}
+
+	public String getDistributionList() {
+		return distributionList;
+	}
+
+	public void setDistributionList(String distributionList) {
+		this.distributionList = distributionList;
 	}
 }

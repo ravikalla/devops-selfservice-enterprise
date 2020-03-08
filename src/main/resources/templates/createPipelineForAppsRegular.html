@@ -32,7 +32,13 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="testURL">4. Please specify URL testing (If exist): </label>
+                    <label for="testURL">4. Please enter distribution list that need access to generated workspaces of this project : </label>
+                    <span class="input-group-addon">Distribution List</span>
+                    <input th:value="${distributionList}" type="text" name="distributionList" id="distributionList" class="form-control" aria-label="Distribution List"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="testURL">5. Please specify URL testing (If exist): </label>
                     <span class="input-group-addon">Testing URL</span>
                     <input th:value="${testURL}" type="text" name="testURL" id="testURL" class="form-control" aria-label="Test URL"/>
                 </div>

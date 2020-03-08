@@ -19,9 +19,10 @@
                 <th>Project Name</th>
                 <th>Technology</th>
                 <th>Organization Name</th>
+                <th>Distribution List</th>
                 <th>Test URL</th>
                 <th>Jenkins Job URL</th>
-                <th>Workspace URL</th>
+                <th>Source Code URL</th>
                 <th>Static Code Analysis</th>
                 <th>Service Ticket</th>
                 <th>Trigger Jenkins Job</th>
@@ -32,6 +33,7 @@
                 <td data-th-text="${project.projectName}">...</td>
                 <td data-th-text="${project.projectType}">...</td>
                 <td data-th-text="${project.orgName}">...</td>
+                <td data-th-text="${project.distributionList}">...</td>
                 <td><a th:href="${project.testURL}" th:text="Test URL" target="_blank" /></td>
                 <td><a th:href="${project.urlJenkinsJob}" th:text="Jenkins" target="_blank" /></td>
                 <td><a th:href="${project.urlGitProject}" th:text="Git" target="_blank" /></td>
