@@ -1,5 +1,5 @@
 package com.synechron.onlineacc.util;
 
 public enum ProjectType {
-	JAVA, DOTNET, PYTHON;
+	JAVA_MICROSERVICES, JAVA_MONOLITH, DOTNET, PYTHON;
 }
