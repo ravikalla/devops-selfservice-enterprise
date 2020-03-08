@@ -136,7 +136,12 @@ public class JenkinsService {
 	}
 
 	public String getJenkinsJobTriggerUrl(OrgName orgName, String strProjectName) {
-		return CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", orgName.toString()) + JENKINS_URI_PROJECT_VIEW.replace("<PROJECT_NAME>", strProjectName) + JENKINS_URI_BUILD_WITH_PARAM.replace("<TOKEN_NAME>", env.getProperty("jenkins.trigger.token"));
+		return CustomGlobalContext.getJenkinsUrl() + JENKINS_URI_ORG.replace("<ORG_NAME>", orgName.toString())
+				+ JENKINS_URI_PROJECT_VIEW.replace("<PROJECT_NAME>", strProjectName)
+				+ JENKINS_URI_BUILD_WITH_PARAM
+					.replace("<TOKEN_NAME>", env.getProperty("jenkins.trigger.token")
+					.replace("<DOCKER_USER>", CustomGlobalContext.getDockerUserName())
+					.replace("<DOCKER_TOKEN>", CustomGlobalContext.getDockerToken()));
 	}
 
 //	@Autowired

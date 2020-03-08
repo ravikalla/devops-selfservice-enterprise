@@ -8,6 +8,8 @@ public class CustomGlobalContext {
 	private static String jenkinsCrumb;
 	private static String gitToken;
 	private static String sonarUrl;
+	private static String dockerUserName;
+	private static String dockerToken;
 
 	public static String getJenkinsUrl() {
 		return jenkinsUrl;
@@ -50,5 +52,17 @@ public class CustomGlobalContext {
 	}
 	public static void setSonarUrl(String sonarUrl) {
 		CustomGlobalContext.sonarUrl = sonarUrl;
+	}
+	public static String getDockerUserName() {
+		return dockerUserName;
+	}
+	public static void setDockerUserName(String dockerUserName) {
+		CustomGlobalContext.dockerUserName = dockerUserName;
+	}
+	public static String getDockerToken() {
+		return dockerToken;
+	}
+	public static void setDockerToken(String dockerToken) {
+		CustomGlobalContext.dockerToken = dockerToken;
 	}
 }

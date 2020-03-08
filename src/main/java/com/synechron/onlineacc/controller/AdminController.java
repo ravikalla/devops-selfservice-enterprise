@@ -42,10 +42,12 @@ public class AdminController {
 			, @RequestParam(value = "jenkinsUserName", required = false) String strJenkinsUserName
 			, @RequestParam(value = "jenkinsPwd", required = false) String strJenkinsPwd
 			, @RequestParam(value = "gitToken", required = true) String strGitToken
+			, @RequestParam(value = "dockerUserName", required = true) String strDockerUserName
+			, @RequestParam(value = "dockerToken", required = true) String strDockerToken
 			, Principal principal
 			)
 			throws Exception {
-		L.info("Start : AdminController.setJenkinsCredentials(...) : strSonarURL = {}, strJenkinsURL = {} : strJenkinsUserName = {}", strSonarUrl, strJenkinsURL, strJenkinsUserName);
+		L.info("Start : AdminController.setJenkinsCredentials(...) : strSonarURL = {}, strJenkinsURL = {} : strJenkinsUserName = {}, strDockerUserName = {}", strSonarUrl, strJenkinsURL, strJenkinsUserName, strDockerUserName);
 		CustomGlobalContext.setJenkinsUrl(strJenkinsURL);
 
 		if (null != strSonarUrl)
@@ -58,7 +60,11 @@ public class AdminController {
 			CustomGlobalContext.setJenkinsPwd(strJenkinsPwd);
 		if (null != strGitToken)
 			CustomGlobalContext.setGitToken(strGitToken);
-		L.info("End : AdminController.setJenkinsCredentials(...) : strSonarURL = {}, strJenkinsURL = {} : strJenkinsUserName = {}", strSonarUrl, strJenkinsURL, strJenkinsUserName);
+		if (null != strDockerUserName)
+			CustomGlobalContext.setDockerUserName(strDockerUserName);
+		if (null != strDockerToken)
+			CustomGlobalContext.setDockerToken(strDockerToken);
+		L.info("End : AdminController.setJenkinsCredentials(...) : strSonarURL = {}, strJenkinsURL = {} : strJenkinsUserName = {}, strDockerUserName = {}", strSonarUrl, strJenkinsURL, strJenkinsUserName, strDockerUserName);
 		return "redirect:/userFront";
 	}
 }
