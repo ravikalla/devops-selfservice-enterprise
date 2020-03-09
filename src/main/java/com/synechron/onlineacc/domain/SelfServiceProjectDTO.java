@@ -32,7 +32,7 @@ public class SelfServiceProjectDTO {
 		this.testURL = selfServiceProjectEntity.getTestURL();
 		this.urlJenkinsJob = urlJenkinsJob;
 		this.urlGitProject = urlGitProject;
-		this.setUrlRepository(urlRepository);
+		this.urlRepository = urlRepository;
 		this.urlDefectURL = urlDefectURL;
 		this.distributionList = distributionList;
 		this.urlSonarURL = urlSonarURL;
