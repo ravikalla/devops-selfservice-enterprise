@@ -29,6 +29,7 @@ public class AdminController {
 		model.addAttribute("jenkinsUserName", ""); // TODO : Send a list of organization names from controller instead of hardcoding in the UI (createPipelineForAppsRegular.html)
 		model.addAttribute("jenkinsPwd", "");
 		model.addAttribute("gitToken", "");
+		model.addAttribute("sonarUrl", "");
 
 		L.debug("End : AdminController.saveCredentials(...)");
 		return "adminJenkinsGitCredentials";
@@ -36,7 +37,7 @@ public class AdminController {
 
 	@RequestMapping(value = URI_ADMIN_CREDENTIALS_JENKINS_GIT, method = RequestMethod.POST)
 	public String setJenkinsCredentials(
-			@RequestParam(value = "sonarURL", required = false) String strSonarUrl
+			@RequestParam(value = "sonarUrl", required = false) String strSonarUrl
 			, @RequestParam(value = "jenkinsURL", required = true) String strJenkinsURL
 			, @RequestParam(value = "jenkinsToken", required = false) String strJenkinsToken
 			, @RequestParam(value = "jenkinsUserName", required = false) String strJenkinsUserName
