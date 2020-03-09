@@ -16,6 +16,7 @@ public class Constant {
 	public static final String JENKINS_URI_CRUMB = "/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"; // TODO : Get it from properties file
 
 	public static final String GIT_URL = "https://github.com";
+	public static final String DOCKER_REPOSITORY_URL = "https://hub.docker.com/r";
 
 	public static final String DEFECT_URL = "https://github.com/ravikalla/devops-tickets/issues";
 }

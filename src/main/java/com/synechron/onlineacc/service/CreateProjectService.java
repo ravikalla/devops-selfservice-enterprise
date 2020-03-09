@@ -60,6 +60,9 @@ public class CreateProjectService {
 //			https://github.com/ravikalla/JavaTemplateProject
 			String urlGitProject = getNewGitUrl(objSelfServiceProjectEntity.getOrgName(), objSelfServiceProjectEntity.getProjectType());
 
+//			https://hub.docker.com/r/ravikalla/JavaTemplateProject
+			String urlRepository = getRepositoryUrl(objSelfServiceProjectEntity.getOrgName(), objSelfServiceProjectEntity.getProjectType());
+
 //			https://github.com/ravikalla/devops-tickets/issues
 			String urlDefectURL = DEFECT_URL;
 
@@ -68,7 +71,7 @@ public class CreateProjectService {
 
 			String urlJenkinsJobTrigger = jenkinsService.getJenkinsJobTriggerUrl(objSelfServiceProjectEntity.getOrgName(), objSelfServiceProjectEntity.getProjectName());
 
-			lstSelfServiceProjectEntity.add(new SelfServiceProjectDTO(objSelfServiceProjectEntity, urlJenkinsJob, urlGitProject, urlDefectURL, objSelfServiceProjectEntity.getDistributionList(), urlSonarURL, urlJenkinsJobTrigger));
+			lstSelfServiceProjectEntity.add(new SelfServiceProjectDTO(objSelfServiceProjectEntity, urlJenkinsJob, urlGitProject, urlDefectURL, objSelfServiceProjectEntity.getDistributionList(), urlSonarURL, urlJenkinsJobTrigger, urlRepository));
 		}
 
 		L.info("End : CreateProjectService.get(...) : UserId = {}", user.getUserId());
@@ -78,5 +81,8 @@ public class CreateProjectService {
 
 	public String getNewGitUrl(OrgName orgName, ProjectType projectType) {
 		return GIT_URL + "/" + orgName.toString() + "/" + env.getProperty("git.templatename." + projectType.toString());
+	}
+	public String getRepositoryUrl(OrgName orgName, ProjectType projectType) {
+		return DOCKER_REPOSITORY_URL + "/" + orgName.toString() + "/" + env.getProperty("git.templatename." + projectType.toString());
 	}
 }
