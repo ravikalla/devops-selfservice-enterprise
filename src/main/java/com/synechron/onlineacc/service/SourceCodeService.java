@@ -105,4 +105,18 @@ public class SourceCodeService {
 			}
 		}
 	}
+
+//	public static void main(String[] args) {
+//	System.out.println("Started!!!");
+//	String strTemplateOrg = "ravi523096";
+//	String strTemplateRepoName = "java-template-project";
+//
+//	GitHubClient client = new GitHubClient();
+//
+////	client.setOAuth2Token("###");
+//	RepositoryService repositoryService = new RepositoryService(client); // TODO : Optimize this by creating a Spring bean
+//
+//	Repository repository = (new SourceCodeService()).forkProject(strTemplateOrg, strTemplateRepoName, OrgName.company10, repositoryService);
+//	System.out.println("Completed!!!");
+//}
 }
